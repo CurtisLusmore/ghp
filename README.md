@@ -36,4 +36,4 @@ As this tool exposes your filesystem to your network, you should be careful
 using this on untrusted networks.
 
 ## Todo
-[ ] Add support for serving rendered Markdown files (`.md`)
+* Add support for serving rendered Markdown files (`.md`)
