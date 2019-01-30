@@ -39,7 +39,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	var port int
-	flag.StringVar(&root, "base", ".", "The root directory to serve files from")
+	flag.StringVar(&root, "root", ".", "The root directory to serve files from")
 	flag.IntVar(&port, "port", 80, "The port to serve over")
 	flag.Parse()
 
