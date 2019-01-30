@@ -19,6 +19,8 @@ When requesting any path (`$path`), `ghp` will do the following:
 
 ## Usage
 ```
+$ go get github.com/CurtisLusmore/ghp
+$ ghp -help
 Usage of ghp:
   -port int
         The port to serve over (default 80)
