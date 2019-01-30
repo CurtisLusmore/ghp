@@ -19,9 +19,24 @@ operations are relative to the `root` commandline flag):
 3. Check whether `404.html` is a file, if so serve that file as a 404
 4. Serve a 404
 
-## Usage
+## Getting It
+From source (requires installing Go):
+```
+$ git clone https://github.com/CurtisLusmore/ghp
+$ cd ghp
+$ go build ghp.go
+```
+
+With Go Get (requires installing Go):
 ```
 $ go get github.com/CurtisLusmore/ghp
+```
+
+Pre-compiled binaries: Check the [latest Releases][1]
+
+
+## Usage
+```
 $ ghp -help
 Usage of ghp:
   -port int
@@ -32,8 +47,15 @@ $ ghp -root MyGitHubPages
 ```
 
 ## Notes
-As this tool exposes your filesystem to your network, you should be careful
-using this on untrusted networks.
+* This tool currently does not support building Jekyll-based GitHub Pages. If
+  you use Jekyll-based GitHub Pages, please see
+  [Setting up your GitHub Pages site locally with Jekyll][2].
+* As this tool exposes your filesystem to your network, you should be careful
+  using this on untrusted networks.
 
 ## Todo
 * Add support for serving rendered Markdown files (`.md`)
+
+
+[1]: https://github.com/CurtisLusmore/ghp/releases
+[2]: https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/
