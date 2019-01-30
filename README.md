@@ -23,7 +23,8 @@ $ go get github.com/CurtisLusmore/ghp
 $ ghp -help
 Usage of ghp:
   -port int
-        The port to serve over (default 80)
+        The port to serve over (default 8080)
   -root string
-        The root directory to serve files from (default ".")
+        The root directory to serve files from (your GitHub Pages repo) (default ".")
+$ ghp -root MyGitHubPages
 ```

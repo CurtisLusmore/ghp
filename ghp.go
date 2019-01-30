@@ -39,8 +39,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	var port int
-	flag.StringVar(&root, "root", ".", "The root directory to serve files from")
-	flag.IntVar(&port, "port", 80, "The port to serve over")
+	flag.StringVar(&root, "root", ".",
+		"The root directory to serve files from "+
+			"(your GitHub Pages repo)")
+	flag.IntVar(&port, "port", 8080, "The port to serve over")
 	flag.Parse()
 
 	root, err := filepath.Abs(root)
