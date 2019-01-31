@@ -18,6 +18,8 @@ operations are relative to the `root` commandline flag):
 2. Check whether `$path.html` points to a file, if so serve that file
 3. Check whether `404.html` is a file, if so serve that file as a 404
 4. Serve a 404
+5. If any of the above results in serving a markdown file (extension `.md`),
+   render the contents as HTML by using the [GitHub Markdown API][3].
 
 ## Getting It
 From source (requires installing Go):
@@ -54,8 +56,9 @@ $ ghp -root MyGitHubPages
   using this on untrusted networks.
 
 ## Todo
-* Add support for serving rendered Markdown files (`.md`)
+* Confirm response headers match live GitHub Pages
 
 
 [1]: https://github.com/CurtisLusmore/ghp/releases
 [2]: https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/
+[3]: https://developer.github.com/v3/markdown/#render-an-arbitrary-markdown-document
