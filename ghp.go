@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"flag"
 	"fmt"
 	"io/ioutil"
@@ -8,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 var root string
@@ -32,8 +34,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	filename = filepath.Clean(filename)
-
-	http.ServeFile(w, r, filename)
+	renderFile(w, r, filename)
 	fmt.Printf("GET %s (%s) 200 OK\n", r.URL.Path, filename)
 }
 
@@ -54,4 +55,41 @@ func main() {
 	fmt.Printf("Serving from %s on http://localhost:%d ...\n", root, port)
 	http.HandleFunc("/", handler)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), nil))
+}
+
+func renderFile(w http.ResponseWriter, r *http.Request, filename string) {
+	nameSlice := strings.Split(filename, ".")
+	switch nameSlice[len(nameSlice)-1] {
+	case "md":
+		content, err := ioutil.ReadFile(filename)
+		if err != nil {
+			http.ServeFile(w, r, filename)
+		}
+
+		htmlContent, err := convertMarkdown(content)
+		if err != nil {
+			http.ServeFile(w, r, filename)
+		}
+
+		w.Write(htmlContent)
+	default:
+		http.ServeFile(w, r, filename)
+	}
+}
+
+func convertMarkdown(mdText []byte) ([]byte, error) {
+	body := bytes.NewReader(mdText)
+	req, err := http.NewRequest("POST", "https://api.github.com/markdown/raw", body)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("Content-Type", "text/plain")
+
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	return ioutil.ReadAll(resp.Body)
 }
