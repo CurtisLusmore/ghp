@@ -59,7 +59,7 @@ func main() {
 
 func renderFile(w http.ResponseWriter, r *http.Request, filename string) {
 	ext:= path.Ext(filename)
-	switch nameSlice[len(nameSlice)-1] {
+	switch ext {
 	case "md":
 		content, err := ioutil.ReadFile(filename)
 		if err != nil {
