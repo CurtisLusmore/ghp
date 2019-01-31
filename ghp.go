@@ -22,6 +22,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		filename = basepath + "/index.html"
 	} else if os.IsNotExist(err) {
 		filename = basepath + ".html"
+		if _, err := os.Stat(filename); os.IsNotExist(err) {
+			filename = basepath + ".md"
+		}
 	}
 
 	if _, err := os.Stat(filename); os.IsNotExist(err) {
