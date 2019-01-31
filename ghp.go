@@ -8,8 +8,8 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path"
 	"path/filepath"
-	"strings"
 )
 
 var root string
@@ -58,9 +58,9 @@ func main() {
 }
 
 func renderFile(w http.ResponseWriter, r *http.Request, filename string) {
-	ext:= path.Ext(filename)
+	ext := path.Ext(filename)
 	switch ext {
-	case "md":
+	case ".md":
 		content, err := ioutil.ReadFile(filename)
 		if err != nil {
 			http.ServeFile(w, r, filename)
